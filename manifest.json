@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Xbout",
+  "version": "1.2",
+  "description": "Display the user's location, device type, and registration year on the X (Twitter) page.",
+  "permissions": [],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

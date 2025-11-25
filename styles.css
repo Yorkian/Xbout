@@ -1,0 +1,34 @@
+/* Xbout - Styles */
+
+.xbout-badge {
+  display: inline !important;
+  font-size: 13px;
+  vertical-align: middle;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.xbout-dot {
+  color: rgb(83, 100, 113);
+  font-size: 13px;
+}
+
+.xbout-sep {
+  color: #536471;
+  margin: 0 1px;
+  font-size: 12px;
+}
+
+.xbout-year {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 700;
+  color: #536471;
+  font-size: 12px;
+}
+
+.xbout-device-icon {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  display: inline-block;
+}
