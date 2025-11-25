@@ -2,6 +2,8 @@
 
 Display a user’s account location 🌍, device type (🍎 Apple / 🤖 Android), and registration year directly on X (Twitter) pages.
 
+![x](https://github.com/Yorkian/Xbout/blob/main/Pic.png?raw=true)
+
 ## Features
 
 * 🌏 Asia/Oceania regions
