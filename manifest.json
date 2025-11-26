@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Xbout",
-  "version": "1.2",
+  "version": "1.3",
   "description": "Display the user's location, device type, and registration year on the X (Twitter) page.",
   "permissions": [],
   "host_permissions": [

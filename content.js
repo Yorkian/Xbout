@@ -1,4 +1,4 @@
-// Xbout - Display a user’s account location 🌍, device type (🍎 Apple / 🤖 Android), and registration year directly on X (Twitter) pages.
+// Xbout - Display a user's account location 🌍, device type (🍎 Apple / 🤖 Android), and registration year directly on X (Twitter) pages.
 // Data source: X GraphQL API - AboutAccountQuery
 
 (function() {
@@ -12,7 +12,7 @@
   const CONFIG = {
     INIT_DELAY: 3000,
     REQUEST_DELAY: 3000,
-    SCAN_INTERVAL: 5000,
+    SCAN_DEBOUNCE: 200,
     CACHE_DURATION: 24 * 60 * 60 * 1000,
     CACHE_ERROR_DURATION: 30 * 60 * 1000,
     MAX_REQUESTS_PER_MINUTE: 10,
@@ -138,6 +138,7 @@
       this.isRateLimited = true;
       this.rateLimitEndTime = Date.now() + CONFIG.RATE_LIMIT_WAIT;
       console.log(`[Xbout] Rate limited, waiting until ${new Date(this.rateLimitEndTime).toLocaleTimeString()}`);
+      showToast('Xbout: Rate limited by X API. Please wait a moment.', 5000, 'warning');
     }
 
     getWaitTime() {
@@ -154,6 +155,35 @@
   const pendingUsers = new Set();
 
   let queryId = null;
+  let scanTimeout = null;
+  let mutationObserver = null;
+
+  // Toast notification function
+  function showToast(message, duration = 5000, type = 'warning') {
+    // Remove existing toast if any
+    const existingToast = document.querySelector('.xbout-toast');
+    if (existingToast) {
+      existingToast.remove();
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `xbout-toast xbout-toast-${type}`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    // Trigger animation
+    requestAnimationFrame(() => {
+      toast.classList.add('xbout-toast-show');
+    });
+
+    // Auto remove after duration
+    setTimeout(() => {
+      toast.classList.remove('xbout-toast-show');
+      setTimeout(() => {
+        toast.remove();
+      }, 300);
+    }, duration);
+  }
 
   function getFlag(location) {
     if (!location) return null;
@@ -297,6 +327,7 @@
         
         return {
           location: aboutProfile.account_based_in || null,
+          locationAccurate: aboutProfile.location_accurate !== false, // true if undefined or true
           source: aboutProfile.source || null,
           createdAt: core.created_at || null
         };
@@ -343,7 +374,7 @@
         pendingUsers.delete(username);
         callback(null);
       } else if (info) {
-        console.log(`[Xbout] ${username}: ${info.location} → ${getFlag(info.location)}`);
+        console.log(`[Xbout] ${username}: ${info.location} → ${getFlag(info.location)}${info.locationAccurate ? '' : ' (VPN)'}`);
         cache.set(username, info);
         pendingUsers.delete(username);
         callback(info);
@@ -419,7 +450,17 @@
       badge.setAttribute('data-user', username);
       
       const parts = [];
-      if (flag) parts.push(flag);
+      
+      // Build flag part with optional VPN badge
+      if (flag) {
+        if (info.locationAccurate === false) {
+          // Location is not accurate - add VPN badge
+          parts.push(`<span class="xbout-flag-container">${flag}<span class="xbout-vpn-badge">VPN</span></span>`);
+        } else {
+          parts.push(flag);
+        }
+      }
+      
       if (deviceHtml) parts.push(deviceHtml);
       if (year) parts.push(`<span class="xbout-year">${year}</span>`);
       
@@ -460,6 +501,44 @@
     });
   }
 
+  // Debounced scan function for MutationObserver
+  function debouncedScan() {
+    if (scanTimeout) {
+      clearTimeout(scanTimeout);
+    }
+    scanTimeout = setTimeout(scan, CONFIG.SCAN_DEBOUNCE);
+  }
+
+  // Setup MutationObserver to watch for DOM changes
+  function setupMutationObserver() {
+    if (mutationObserver) {
+      mutationObserver.disconnect();
+    }
+
+    mutationObserver = new MutationObserver((mutations) => {
+      // Check if any mutation added new nodes
+      let hasNewNodes = false;
+      for (const mutation of mutations) {
+        if (mutation.addedNodes.length > 0) {
+          hasNewNodes = true;
+          break;
+        }
+      }
+      
+      if (hasNewNodes) {
+        debouncedScan();
+      }
+    });
+
+    // Observe the entire document for added nodes
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    console.log('[Xbout] MutationObserver started');
+  }
+
   async function init() {
     console.log('[Xbout] Initializing...');
     
@@ -478,8 +557,10 @@
     
     setupQueryIdObserver();
     
+    // Use MutationObserver instead of setInterval
+    setupMutationObserver();
     
-    setInterval(scan, CONFIG.SCAN_INTERVAL);
+    // Initial scan
     scan();
     console.log('[Xbout] Ready');
   }
