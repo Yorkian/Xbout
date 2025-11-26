@@ -29,6 +29,7 @@ Display a user’s account location 🌍, device type (🍎 Apple / 🤖 Android
 4. Click “Load unpacked”
 5. Select the folder containing these files
 6. Done! Visit X.com to see the effect
+7. Or install from the [Chrome Web Store](https://chromewebstore.google.com/detail/xbout/fbghhoaacmbjmbmekocphjnkdjoplgad) directly
 
 ## File Structure
 
