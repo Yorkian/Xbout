@@ -45,7 +45,7 @@
     'chile': '🇨🇱', 'colombia': '🇨🇴', 'peru': '🇵🇪', 'venezuela': '🇻🇪',
     'australia': '🇦🇺', 'new zealand': '🇳🇿', 'south africa': '🇿🇦',
     'egypt': '🇪🇬', 'nigeria': '🇳🇬', 'kenya': '🇰🇪', 'morocco': '🇲🇦',
-    'ethiopia': '🇪🇹', 'ghana': '🇬🇭',
+    'ethiopia': '🇪🇹', 'ghana': '🇬🇭', 'australia': '🇦🇺',
   };
 
   class CacheManager {
