@@ -26,7 +26,7 @@
   const countryToFlag = {
     'china': '🇨🇳', 'japan': '🇯🇵', 'south korea': '🇰🇷', 'korea': '🇰🇷',
     'taiwan': '🇹🇼', 'hong kong': '🇭🇰', 'singapore': '🇸🇬', 'india': '🇮🇳',
-    'thailand': '🇹🇭', 'vietnam': '🇻🇳', 'malaysia': '🇲🇾', 'indonesia': '🇮🇩',
+    'thailand': '🇹🇭', 'viet nam': '🇻🇳', 'malaysia': '🇲🇾', 'indonesia': '🇮🇩',
     'philippines': '🇵🇭', 'pakistan': '🇵🇰', 'bangladesh': '🇧🇩', 'nepal': '🇳🇵',
     'sri lanka': '🇱🇰', 'myanmar': '🇲🇲', 'cambodia': '🇰🇭', 'mongolia': '🇲🇳',
     'saudi arabia': '🇸🇦', 'united arab emirates': '🇦🇪', 'uae': '🇦🇪',
