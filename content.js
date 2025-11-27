@@ -221,6 +221,15 @@
     return '🌍';
   }
 
+  // Format location name for tooltip display (capitalize each word)
+  function formatLocationName(location) {
+    if (!location) return '';
+    return location
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  }
+
   function getDeviceHtml(source) {
     if (!source) return '';
     const s = source.toLowerCase();
@@ -451,13 +460,16 @@
       
       const parts = [];
       
-      // Build flag part with optional VPN badge
+      // Build flag part with label and optional VPN badge
       if (flag) {
+        const locationName = formatLocationName(info.location);
+        const escapedLocationName = locationName.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        
         if (info.locationAccurate === false) {
           // Location is not accurate - add VPN badge
-          parts.push(`<span class="xbout-flag-container">${flag}<span class="xbout-vpn-badge">VPN</span></span>`);
+          parts.push(`<span class="xbout-flag-wrapper"><span class="xbout-flag-text"><span class="xbout-flag-container">${flag}<span class="xbout-vpn-badge">VPN</span></span></span><span class="xbout-flag-label">${escapedLocationName}</span></span>`);
         } else {
-          parts.push(flag);
+          parts.push(`<span class="xbout-flag-wrapper"><span class="xbout-flag-text">${flag}</span><span class="xbout-flag-label">${escapedLocationName}</span></span>`);
         }
       }
       

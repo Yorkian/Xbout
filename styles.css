@@ -33,6 +33,43 @@
   display: inline-block;
 }
 
+/* Flag wrapper for hover label */
+.xbout-flag-wrapper {
+  display: inline;
+  cursor: pointer;
+}
+
+/* Flag emoji */
+.xbout-flag-text {
+  display: inline;
+}
+
+/* Label - hidden by default */
+.xbout-flag-label {
+  display: none;
+  padding: 1px 4px;
+  background: linear-gradient(135deg, #1d9bf0 0%, #1a8cd8 50%, #0d7ac5 100%);
+  color: #fff;
+  font-size: 9px;
+  font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 1px 4px rgba(29, 155, 240, 0.4);
+  vertical-align: middle;
+}
+
+/* On hover: hide flag, show label */
+.xbout-flag-wrapper:hover .xbout-flag-text {
+  display: none;
+}
+
+.xbout-flag-wrapper:hover .xbout-flag-label {
+  display: inline;
+}
+
 /* Flag container for VPN badge positioning */
 .xbout-flag-container {
   display: inline;
