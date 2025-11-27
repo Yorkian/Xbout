@@ -29,7 +29,7 @@ Display a user’s account location 🌍, device type (🍎 Apple / 🤖 Android
 4. Click “Load unpacked”
 5. Select the folder containing these files
 6. Done! Visit X.com to see the effect
-7. Or install from the [Chrome Web Store](https://chromewebstore.google.com/detail/xbout/fbghhoaacmbjmbmekocphjnkdjoplgad) directly
+7. Or install from the [Chrome Web Store](https://chromewebstore.google.com/detail/xbout/fbghhoaacmbjmbmekocphjnkdjoplgad)  [Greasy Fork](https://greasyfork.org/zh-CN/scripts/557057-xbout) directly
 
 ## File Structure
 
@@ -38,6 +38,7 @@ xbout/
 ├── manifest.json      # Extension configuration
 ├── content.js         # Core script
 ├── styles.css         # Stylesheet
+├── icon16.png         # 16x16 icon
 ├── icon48.png         # 48x48 icon
 ├── icon128.png        # 128x128 icon
 └── README.md          # Documentation
