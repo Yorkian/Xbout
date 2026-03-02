@@ -1,5 +1,4 @@
 /* Xbout - Styles */
-
 .xbout-badge {
   display: inline !important;
   font-size: 13px;
@@ -7,43 +6,36 @@
   white-space: nowrap;
   flex-shrink: 0;
 }
-
 .xbout-dot {
   color: rgb(83, 100, 113);
   font-size: 13px;
 }
-
 .xbout-sep {
   color: #536471;
   margin: 0 1px;
   font-size: 12px;
 }
-
 .xbout-year {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-weight: 700;
   color: #536471;
   font-size: 12px;
 }
-
 .xbout-device-icon {
   width: 14px;
   height: 14px;
   vertical-align: middle;
   display: inline-block;
 }
-
 /* Flag wrapper for hover label */
 .xbout-flag-wrapper {
   display: inline;
   cursor: pointer;
 }
-
 /* Flag emoji */
 .xbout-flag-text {
   display: inline;
 }
-
 /* Label - hidden by default */
 .xbout-flag-label {
   display: none;
@@ -60,21 +52,17 @@
   box-shadow: 0 1px 4px rgba(29, 155, 240, 0.4);
   vertical-align: middle;
 }
-
 /* On hover: hide flag, show label */
 .xbout-flag-wrapper:hover .xbout-flag-text {
   display: none;
 }
-
 .xbout-flag-wrapper:hover .xbout-flag-label {
   display: inline;
 }
-
 /* Flag container for VPN badge positioning */
 .xbout-flag-container {
   display: inline;
 }
-
 /* VPN badge - inline superscript style */
 .xbout-vpn-badge {
   font-size: 5px;
@@ -90,30 +78,52 @@
   margin-left: 1px;
 }
 
-/* Toast notification */
+/* ===== Toast Notification ===== */
 .xbout-toast {
   position: fixed;
-  top: 16px;
-  right: 16px;
-  background: #1d9bf0;
-  color: #fff;
-  padding: 12px 16px;
-  border-radius: 8px;
+  bottom: 28px;
+  right: 24px;
+  z-index: 99999;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  max-width: 280px;
+  padding: 12px 14px;
+
+  background: #16181c;
+  color: #e7e9ea;
+  border: 1px solid #2f3640;
+  border-left: 3px solid #1d9bf0;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 9999;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4;
+
   opacity: 0;
-  transform: translateX(100%);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+/* 品牌标签：Xbout */
+.xbout-toast::before {
+  content: "Xbout";
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1d9bf0;
+  background: rgba(29, 155, 240, 0.12);
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-top: 1px;
+  white-space: nowrap;
 }
 
 .xbout-toast.xbout-toast-show {
   opacity: 1;
-  transform: translateX(0);
-}
-
-.xbout-toast.xbout-toast-warning {
-  background: #f4212e;
+  transform: translateY(0);
 }
