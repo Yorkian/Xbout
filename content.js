@@ -39,7 +39,7 @@
     'austria': '🇦🇹', 'sweden': '🇸🇪', 'norway': '🇳🇴', 'denmark': '🇩🇰',
     'finland': '🇫🇮', 'poland': '🇵🇱', 'russia': '🇷🇺', 'ukraine': '🇺🇦',
     'greece': '🇬🇷', 'czech republic': '🇨🇿', 'czechia': '🇨🇿', 'hungary': '🇭🇺',
-    'romania': '🇷🇴', 'ireland': '🇮🇪', 'scotland': '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+    'romania': '🇷🇴', 'ireland': '🇮🇪', 'scotland': '🏴󠁧󠁢󠁳󠁣󠁴U+E007F',
     'united states': '🇺🇸', 'usa': '🇺🇸', 'us': '🇺🇸',
     'canada': '🇨🇦', 'mexico': '🇲🇽', 'brazil': '🇧🇷', 'argentina': '🇦🇷',
     'chile': '🇨🇱', 'colombia': '🇨🇴', 'peru': '🇵🇪', 'venezuela': '🇻🇪',
@@ -138,7 +138,8 @@
       this.isRateLimited = true;
       this.rateLimitEndTime = Date.now() + CONFIG.RATE_LIMIT_WAIT;
       console.log(`[Xbout] Rate limited, waiting until ${new Date(this.rateLimitEndTime).toLocaleTimeString()}`);
-      showToast('Xbout: Rate limited by X API. Please wait a moment.', 5000, 'warning');
+      // 去掉 "Xbout: " 前缀，CSS ::before 已显示品牌标签
+      showToast('Rate limited by X API. Please wait a moment.', 5000, 'warning');
     }
 
     getWaitTime() {
@@ -446,9 +447,12 @@
       
       if (!flag && !deviceHtml && !year) return;
       
-      const article = element.closest('article');
-      if (article) {
-        const existingBadge = article.querySelector(`.xbout-badge[data-user="${username}"]`);
+      // 扩大容器检测：article（推文流）、UserCell（Who to Follow / 搜索结果）、TypeaheadUser（搜索下拉）
+      const container = element.closest('article') ||
+                        element.closest('[data-testid="UserCell"]') ||
+                        element.closest('[data-testid="TypeaheadUser"]');
+      if (container) {
+        const existingBadge = container.querySelector(`.xbout-badge[data-user="${username}"]`);
         if (existingBadge) return;
       }
       
